@@ -19,7 +19,9 @@ namespace CellEngine.Utilities
 
         public int  length => _backingArray.Length;
         public int2 size   => new int2(width, height);
-        
+
+        public bool isCreated => _backingArray.IsCreated;
+            
 
         public Native2dArray(int width, int height, Allocator allocator)
         {
