@@ -72,6 +72,7 @@ namespace World
         }
 
 
+        public void SwapCells(int2x2 cells) => SwapCells(cells.c0, cells.c1);
         public void SwapCells(int2 worldPosA, int2 worldPosB)
         {
             Chunk chunkA = GetChunkAt(worldPosA);

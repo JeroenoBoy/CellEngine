@@ -615,8 +615,8 @@ MonoBehaviour:
   _doInitialFill: 1
   _cellType: 1
   _position:
-    x: 0
+    x: 32
     y: 64
   _size:
-    x: 128
+    x: 64
     y: 64
