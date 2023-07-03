@@ -89,7 +89,7 @@ namespace World.Components
             void Schedule(int offset)
             {
                 job.offset = offset;
-                job.Schedule(len / 4, 1).Complete();
+                job.Schedule((int)math.ceil(len / 4f), 1).Complete();
             }
         }
     }

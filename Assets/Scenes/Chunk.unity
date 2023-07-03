@@ -254,8 +254,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraSize:
-    x: 2
-    y: 2
+    x: 1
+    y: 1
   _tilesBases:
   - {fileID: 11400000, guid: 881e81e706823c34a95f7600f673ff07, type: 2}
   - {fileID: 11400000, guid: 47d4af847ce8a4d438e88be4b6756c67, type: 2}
@@ -605,8 +605,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 254728307}
   _chunks:
-    x: 2
-    y: 2
+    x: 1
+    y: 1
   _cellTemplates:
   - cellType: 0
     behaviour: 0

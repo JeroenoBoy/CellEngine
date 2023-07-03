@@ -48,7 +48,7 @@ namespace World
                 worldData = this,
                 template = template,
                 worldPosition = worldPosition,
-                boundsMax = worldPosition + size
+                boundsMax = worldPosition + size - 1
             }.Schedule(chunks.length, 16).Complete();
         }
         

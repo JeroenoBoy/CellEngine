@@ -8,6 +8,11 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
+	"picker_window_position_offset.74AD8FDB" = "1208,8;235,2;320;550,4"
+	"picker_search_text.74AD8FDB" = "knob"
+	"last_search.74AD8FDB" = "knob"
+	"OpenInspectorPreview.74AD8FDB" = "0"
+	"currentGroup.74AD8FDB" = null
 }
 providers = {
 	journal = {
