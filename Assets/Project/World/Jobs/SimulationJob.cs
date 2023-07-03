@@ -12,6 +12,7 @@ using Random = Unity.Mathematics.Random;
 
 namespace World.Jobs
 {
+    [BurstCompile]
     public struct SimulationJob : IJobParallelFor
     {
         public WorldData worldData;
@@ -108,12 +109,6 @@ namespace World.Jobs
 
         public void ProcessWater(int2 worldPos, Cell cell, ref Random random, ref NativeList<int2x2> swaps)
         {
-            if (ProcessSand(worldPos, cell, ref random, ref swaps)) return;
-            
-            if (worldPos.x == 127) {
-                _ = 69;
-            }
-            
             int2 otherPos = worldPos;
             int  state    = random.NextInt(0, 2);
             
