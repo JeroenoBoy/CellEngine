@@ -24,10 +24,13 @@ namespace CellEngine.Utilities
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool CheckHorizontalOverlap(int aMin, int aMax, int bMin, int bMax)
         {
-            if (aMin > bMin) {
-                return aMax <= bMax;
+            if (aMin > aMax) {
+                if (aMax >= bMax) return true;
+                return bMin <= aMax;
             }
-            return aMax <= bMax;
+
+            if (bMax >= aMax) return true;
+            return aMin <= bMax;
         }
     }
 }
