@@ -228,15 +228,17 @@ namespace World
     public enum CellBehaviour
     {
         Air = 0,
-        Sand = 1
+        Sand = 1,
+        Water = 2
     }
     
     
     public struct Cell
     {
-       public int2 position;
-       public byte cellType;
+       public int2          position;
+       public byte          cellType;
        public CellBehaviour behaviour;
+       public int           mass;
 
 
         public Cell(CellTemplate template, int2 position)
@@ -244,6 +246,7 @@ namespace World
             this.behaviour = template.behaviour;
             this.position  = position;
             this.cellType  = template.cellType;
+            this.mass      = template.mass;
         }
 
 
@@ -257,5 +260,6 @@ namespace World
     {
         public byte          cellType;
         public CellBehaviour behaviour;
+        public int           mass;
     }
 }

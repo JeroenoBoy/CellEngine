@@ -259,6 +259,7 @@ MonoBehaviour:
   _tilesBases:
   - {fileID: 11400000, guid: 881e81e706823c34a95f7600f673ff07, type: 2}
   - {fileID: 11400000, guid: 47d4af847ce8a4d438e88be4b6756c67, type: 2}
+  - {fileID: 11400000, guid: c9e31ea7b9e80d34a87fa8102a06b576, type: 2}
 --- !u!1 &1126919225
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,13 +611,18 @@ MonoBehaviour:
   _cellTemplates:
   - cellType: 0
     behaviour: 0
+    mass: 0
   - cellType: 1
     behaviour: 1
+    mass: 8
+  - cellType: 2
+    behaviour: 2
+    mass: 1
   _doInitialFill: 1
-  _cellType: 1
+  _cellType: 2
   _position:
-    x: 32
-    y: 64
+    x: 64
+    y: 0
   _size:
     x: 64
     y: 64

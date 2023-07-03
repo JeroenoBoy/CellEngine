@@ -80,12 +80,12 @@ namespace World.Components
             SimulationJob job = new SimulationJob {worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time.deltaTime * 741246)};
             
             int len = _worldData.length;
-            Schedule(0); 
-            Schedule(1);
-            Schedule(2);
-            Schedule(3);
+            Schedule(int2.zero); 
+            Schedule(new int2(0, 1));
+            Schedule(new int2(1, 0));
+            Schedule(new int2(1, 1));
 
-            void Schedule(int offset)
+            void Schedule(int2 offset)
             {
                 job.offset = offset;
                 job.Schedule((int)math.ceil(len / 4f), 1).Complete();

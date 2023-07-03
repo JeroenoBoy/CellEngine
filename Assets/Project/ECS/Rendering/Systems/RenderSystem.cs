@@ -80,7 +80,7 @@ namespace CellEngine.Rendering
             int2         size         = new int2(tileMap.size.x, tileMap.size.y);
             int2         position     = renderTarget.position;
 
-            if (CommonMath.Compare(_jobResults.size != size)) {
+            if (Bools.Compare(_jobResults.size != size)) {
                 _jobResults.Dispose();
                 _previousResults.Dispose();
                 
