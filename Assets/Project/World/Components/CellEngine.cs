@@ -75,7 +75,6 @@ namespace World.Components
         }
 
 
-        [BurstCompile]
         private void JobScheduler()
         {
             SimulationJob job = new SimulationJob {worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time.deltaTime * 741246)};
