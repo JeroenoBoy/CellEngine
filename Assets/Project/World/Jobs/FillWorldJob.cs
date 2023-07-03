@@ -26,9 +26,9 @@ namespace World.Jobs
             
             for (int x = Chunk.SIZE; x --> 0;)
             for (int y = Chunk.SIZE; y --> 0;) {
-                int2 worldPos = chunkWorldPos + new int2(x,y);
-                if (!Bounds.IsInside(worldPos, worldPosition, boundsMax)) return;
-                chunk[x, y] = new Cell(template, x, y);
+                int2 pos = new int2(x,y);
+                if (!Bounds.IsInside(chunkWorldPos + pos, worldPosition, boundsMax)) continue;
+                chunk[pos] = new Cell(template, pos);
             }
         }
     }

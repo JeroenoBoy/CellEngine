@@ -27,8 +27,6 @@ namespace World.Jobs
 
             Random random = new Random((uint)((index << 10) * 20) + seed);
 
-            NativeList<int2x2> swapOperations = new NativeList<int2x2>(Chunk.SIZE, Allocator.TempJob);
-
             for (int y = 0; y < Chunk.SIZE; y++) {
                 for (int x = 0; x < Chunk.SIZE; x++) {
                     Cell cell     = chunk[x, y];
@@ -36,27 +34,21 @@ namespace World.Jobs
 
                     switch (cell.behaviour) {
                         case CellBehaviour.Air: continue;
-                        case CellBehaviour.Sand: ProcessSand(worldPos, ref random, ref swapOperations); continue;
+                        case CellBehaviour.Sand: ProcessSand(worldPos, ref random); continue;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
                 }
-
-                for (int i = swapOperations.Length; i-- > 0;) {
-                    worldData.SwapCells(swapOperations[i]);
-                }
-                
-                swapOperations.Clear();
             }
         }
 
 
-        public void ProcessSand(int2 worldPos, ref Random random, ref NativeList<int2x2> swapOperation)
+        public void ProcessSand(int2 worldPos, ref Random random)
         {
             int2 otherPos = worldPos + down;
             
             if (worldData.TryGetCell(otherPos, out Cell other) && other.behaviour == CellBehaviour.Air) {
-                swapOperation.Add(new int2x2(worldPos, otherPos));
+                worldData.SwapCells(worldPos, otherPos);
                 return;
             }
 
@@ -64,13 +56,13 @@ namespace World.Jobs
             
             otherPos.x += state * 2 - 1;
             if (worldData.TryGetCell(otherPos, out other) && other.behaviour == CellBehaviour.Air) {
-                swapOperation.Add(new int2x2(worldPos, otherPos));
+                worldData.SwapCells(worldPos, otherPos);
                 return;
             }
 
             otherPos.x += state * -4 + 2;
             if (worldData.TryGetCell(otherPos, out other) && other.behaviour == CellBehaviour.Air) {
-                swapOperation.Add(new int2x2(worldPos, otherPos));
+                worldData.SwapCells(worldPos, otherPos);
             }
         }
     }

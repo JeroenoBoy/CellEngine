@@ -234,8 +234,8 @@ namespace World
     
     public struct Cell
     {
-       [HideInInspector]
        public int2 position;
+       public byte cellType;
        public CellBehaviour behaviour;
 
 
@@ -243,6 +243,7 @@ namespace World
         {
             this.behaviour = template.behaviour;
             this.position  = position;
+            this.cellType  = template.cellType;
         }
 
 

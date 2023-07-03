@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CellEngine.Utilities;
 using JUtils.Attributes;
 using Unity.Burst;
 using Unity.Collections;
@@ -16,7 +17,7 @@ namespace World.Components
 {
     public class CellEngine : MonoBehaviour
     {
-        [SerializeField, Required] public CellWorldRenderer _renderer;
+        [SerializeField, Required] private CellWorldRenderer _renderer;
         
         [Space]
         [SerializeField] private int2   _chunks;
@@ -64,7 +65,6 @@ namespace World.Components
             Profiler.BeginSample("Rendering");
             _renderer.OnRender(_worldData);
             Profiler.EndSample();
-
         }
 
 
@@ -79,15 +79,17 @@ namespace World.Components
         private void JobScheduler()
         {
             SimulationJob job = new SimulationJob {worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time.deltaTime * 741246)};
-            Schedule(0);
+            
+            int len = _worldData.length;
+            Schedule(0); 
             Schedule(1);
             Schedule(2);
             Schedule(3);
-            
+
             void Schedule(int offset)
             {
                 job.offset = offset;
-                job.Schedule(_worldData.length / 4, 1).Complete();
+                job.Schedule(len / 4, 1).Complete();
             }
         }
     }

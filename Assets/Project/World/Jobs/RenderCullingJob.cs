@@ -13,7 +13,7 @@ namespace World.Jobs
     {
         public WorldData          worldData;
         [NativeDisableParallelForRestriction]
-        public Native2dArray<int> results;
+        public Native2dArray<byte> results;
 
         public int2 cameraPosition;
         public int2 cameraMax;
@@ -31,8 +31,8 @@ namespace World.Jobs
             for (int y = Chunk.SIZE; y --> 0;) {
                 int2 pos = chunkPos + new int2(x, y);
                 if (!Bounds.IsInside(pos, cameraPosition, cameraMax)) continue; 
-                results[pos - cameraPosition] = (int)chunk[x, y].behaviour;
+                results[pos - cameraPosition] = chunk[x, y].cellType;
             }
         }
     }
-}   
+}

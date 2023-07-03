@@ -19,8 +19,8 @@ namespace World.Components.Rendering
         [SerializeField] private TileBase[] _tilesBases;
 
         private Tilemap            _tilemap;
-        private Native2dArray<int> _tiles;
-        private Native2dArray<int> _previousTiles;
+        private Native2dArray<byte> _tiles;
+        private Native2dArray<byte> _previousTiles;
 
         private List<Vector3Int> _keys;
         private List<TileBase>   _values;
@@ -33,12 +33,12 @@ namespace World.Components.Rendering
             transform.localScale = Vector3.one * Chunk.INVERSE_SIZE;
             _tilemap.size        = new Vector3Int(_cameraSize.x * Chunk.SIZE, _cameraSize.y * Chunk.SIZE);
 
-            _tiles         = new Native2dArray<int>(worldData.worldSize, Allocator.Persistent);
-            _previousTiles = new Native2dArray<int>(worldData.worldSize, Allocator.Persistent);
+            _tiles         = new Native2dArray<byte>(worldData.worldSize, Allocator.Persistent);
+            _previousTiles = new Native2dArray<byte>(worldData.worldSize, Allocator.Persistent);
             _keys          = new List<Vector3Int>(_tiles.length);
             _values        = new List<TileBase>(_tiles.length);
             
-            _previousTiles.Fill(-1);
+            _previousTiles.Fill(255);
         }
 
         
@@ -57,13 +57,13 @@ namespace World.Components.Rendering
             
             Profiler.BeginSample("Tile filtering");
             for (int i = 0; i < _tiles.length; i++) {
-                int tileIndex = _tiles[i];
-                if (tileIndex == _previousTiles[i]) continue;
+                byte tileType = _tiles[i];
+                if (tileType == _previousTiles[i]) continue;
 
                 int2 index = _tiles.GetIndex(i);
-                _previousTiles[i] = tileIndex;
+                _previousTiles[i] = tileType;
                 _keys.Add(new Vector3Int(index.x, index.y));
-                _values.Add(_tilesBases[tileIndex]);
+                _values.Add(_tilesBases[tileType]);
             }
             Profiler.EndSample();
 
