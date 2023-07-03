@@ -151,7 +151,7 @@ namespace CellEngine.Rendering
             
             for (int i = cellPoses.Length; i --> 0;) {
                 int2 worldPos = chunkPos + cellPoses[i].value;
-                if (!Bounds.IsInside(worldPos, cameraMax, cameraPosition)) return;
+                if (!Bounds.IsInside(worldPos, cameraPosition, cameraMax)) return;
 
                 results[worldPos - cameraPosition] = cellTypes[i].value;
             }

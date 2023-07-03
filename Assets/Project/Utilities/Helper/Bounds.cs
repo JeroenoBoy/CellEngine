@@ -7,7 +7,7 @@ namespace CellEngine.Utilities
 {
     public static class Bounds
     {
-        public static bool IsInside(int2 position, int2 boundsMax, int2 boundsMin)
+        public static bool IsInside(int2 position, int2 boundsMin, int2 boundsMax)
         {
             return (boundsMin.x <= position.x && boundsMax.x >= position.x)
                 && (boundsMin.y <= position.y && boundsMax.y >= position.y);

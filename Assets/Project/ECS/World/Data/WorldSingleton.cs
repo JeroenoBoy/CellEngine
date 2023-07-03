@@ -126,7 +126,7 @@ namespace CellEngine.World
 
         public bool TryGetCell(int2 position, out CellType cellType)
         {
-            if (!Bounds.IsInside(position, boundsMax, boundsMin)) {
+            if (!Bounds.IsInside(position, boundsMin, boundsMax)) {
                 cellType = CellType.Invalid;
                 return false;
             }
@@ -136,7 +136,7 @@ namespace CellEngine.World
         }
 
 
-        public bool IsInside(int2 position) => Bounds.IsInside(position, boundsMax, boundsMin);
+        public bool IsInside(int2 position) => Bounds.IsInside(position, boundsMin, boundsMax);
 
 
         public Entity GetEntityAt(int2 worldPosition)
