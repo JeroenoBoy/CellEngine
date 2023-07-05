@@ -12,6 +12,8 @@ namespace CellEngine.World.Jobs
     [BurstCompile]
     public struct SimulationJob : IJobParallelFor
     {
+        public float     gravity;
+        public float     dt;
         public WorldData worldData;
         public int2      offset;
         public uint      seed;
@@ -39,15 +41,18 @@ namespace CellEngine.World.Jobs
                 //  First iteration
                 
                 for (int x = 0; x < Chunk.SIZE; x++) {
-                    Cell cell     = chunk[x, y];
-                    int2 worldPos = chunkPos + new int2(x,y);
-
+                    Cell cell    = chunk[x, y];
+                    int2 prevPos = chunkPos + new int2(x,y);
+                    int2 nextPos = ApplyVelocity(ref cell);
+                    
                     bools[x] = cell.behaviour switch
                     {
-                        CellBehaviour.Sand => ProcessGravity(worldPos, cell, ref swaps),
-                        CellBehaviour.Water => ProcessGravity(worldPos, cell, ref swaps),
+                        CellBehaviour.Sand => ProcessGravity(prevPos, nextPos, ref cell, ref swaps),
+                        CellBehaviour.Water => ProcessGravity(prevPos, nextPos, ref cell, ref swaps),
                         _                  => false
                     };
+
+                    chunk[x, y] = cell;
                 }
                 
                 //  Second iteration
@@ -75,11 +80,23 @@ namespace CellEngine.World.Jobs
         }
 
 
-        public bool ProcessGravity(int2 worldPos, Cell cell, ref NativeList<int2x2> swaps)
+        public int2 ApplyVelocity(ref Cell cell)
         {
-            int2 otherPos = worldPos + down;
-            if (!worldData.TryGetCell(otherPos, out Cell other) || cell.mass <= other.mass) return false;
+            cell.worldPosition += cell.velocity * dt;
+            return (int2)math.floor(cell.worldPosition);
+        }
+        
 
+        public bool ProcessGravity(int2 prevPos, int2 nextPos, ref Cell cell, ref NativeList<int2x2> swaps)
+        {
+            worldData.RayCast();
+
+            if (!worldData.TryGetCell(otherPos, out Cell other) || cell.mass <= other.mass) {
+                cell.velocity = float2.zero;
+                return false;
+            }
+            
+            cell.velocity += new float2(0, -gravity * dt);
             swaps.Add(new int2x2(worldPos, otherPos));
             return true;
         }

@@ -15,9 +15,10 @@ namespace CellEngine.World
     public class CellEngine : MonoBehaviour
     {
         [SerializeField, Required] private CellWorldRenderer _renderer;
-        
+
         [Space]
-        [SerializeField] private int2   _chunks;
+        [SerializeField] private float          _gravity = 9.81f;
+        [SerializeField] private int2           _chunks;
         [SerializeField] private CellTemplate[] _cellTemplates;
 
         [Header("Fill")]
@@ -66,7 +67,7 @@ namespace CellEngine.World
         private void FixedUpdate()
         {
             Profiler.BeginSample("Update loop");
-            JobScheduler();
+            JobScheduler(Time.fixedDeltaTime);
             Profiler.EndSample();
             
             Profiler.BeginSample("Rendering");
@@ -82,9 +83,10 @@ namespace CellEngine.World
         }
 
 
-        private void JobScheduler()
+        private void JobScheduler(float dt)
         {
-            SimulationJob job = new SimulationJob {worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time.deltaTime * 741246)};
+            SimulationJob job = new SimulationJob { gravity = _gravity, dt = dt, worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time
+            .deltaTime * 741246)};
             
             int len = _worldData.length;
             Schedule(int2.zero); 
