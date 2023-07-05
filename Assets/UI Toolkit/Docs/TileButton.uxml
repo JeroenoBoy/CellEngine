@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Prefabs/UI/Styles/UI.uss?fileID=7433441132597879392&amp;guid=76b531ca300d63f4693a4f94af3620a1&amp;type=3#UI" />
+    <ui:Button name="TileButton" class="tileButton" style="background-color: rgb(255, 255, 255); transition-duration: 0.3s; transition-property: all;" />
+</ui:UXML>

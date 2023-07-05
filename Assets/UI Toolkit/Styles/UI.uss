@@ -1,0 +1,11 @@
+.tileButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    animation: all .3s;
+}
+
+.tileButton.selected {
+    border-color: red;
+    border-width: 2px;
+}

@@ -5,6 +5,7 @@ using CellEngine.World.Jobs;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using UnityEngine;
 using Bounds = CellEngine.Utilities.Bounds;
 
 
@@ -258,6 +259,7 @@ namespace CellEngine.World
     public struct CellTemplate
     {
         public byte          cellType;
+        public Color         color;
         public CellBehaviour behaviour;
         public int           mass;
     }

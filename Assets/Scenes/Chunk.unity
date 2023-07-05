@@ -120,6 +120,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &50910819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50910821}
+  - component: {fileID: 50910820}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &50910820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50910819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: c837bbd95fbf0b54fa9c85c8c390b8ca, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: c2b56b64dfebf0c47b3709923134437b,
+    type: 3}
+  m_SortingOrder: 0
+--- !u!4 &50910821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50910819}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &254728303
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,12 +659,15 @@ MonoBehaviour:
     y: 4
   _cellTemplates:
   - cellType: 0
+    color: {r: 0.18039216, g: 0.18039216, b: 0.18039216, a: 1}
     behaviour: 0
     mass: 0
   - cellType: 1
+    color: {r: 0.78431374, g: 0.56078434, b: 0.019607844, a: 1}
     behaviour: 1
     mass: 8
   - cellType: 2
+    color: {r: 0, g: 0.5137255, b: 1, a: 1}
     behaviour: 2
     mass: 1
   _doInitialFill: 1

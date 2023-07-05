@@ -28,6 +28,8 @@ namespace CellEngine.World
 
         private WorldData _worldData;
 
+        public CellTemplate[] cellTemplates => _cellTemplates;
+        
 
         public void Fill(byte cellType, int2 position, int2 size)
         {
