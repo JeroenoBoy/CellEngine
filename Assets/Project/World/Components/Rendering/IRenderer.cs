@@ -2,7 +2,7 @@
 
 
 
-namespace World.Components.Rendering
+namespace CellEngine.World.Rendering
 {
     public abstract class CellWorldRenderer : MonoBehaviour
     {

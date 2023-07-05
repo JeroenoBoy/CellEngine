@@ -298,13 +298,6 @@
         "com.unity.render-pipelines.core": "15.0.6"
       }
     },
-    "jutils": {
-      "version": "https://github.com/JeroenoBoy/JUtils.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "f1f91bffe3b8e5e4e274aa5b69150d00f689ec9f"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using CellEngine.Utilities;
+using CellEngine.World.Jobs;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEngine;
-using World.Jobs;
 using Bounds = CellEngine.Utilities.Bounds;
 
 
 
-namespace World
+namespace CellEngine.World
 {
     /// <summary> x
     /// The struct containing all the data of the world

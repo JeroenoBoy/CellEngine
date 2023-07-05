@@ -1,16 +1,13 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using CellEngine.Utilities;
+﻿using CellEngine.Utilities;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
-using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
 
 
-namespace World.Jobs
+namespace CellEngine.World.Jobs
 {
     [BurstCompile]
     public struct SimulationJob : IJobParallelFor

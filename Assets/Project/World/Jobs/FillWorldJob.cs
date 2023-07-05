@@ -5,7 +5,7 @@ using Unity.Mathematics;
 
 
 
-namespace World.Jobs
+namespace CellEngine.World.Jobs
 {
     [BurstCompile]
     public struct FillWorldJob : IJobParallelFor

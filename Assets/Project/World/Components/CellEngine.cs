@@ -1,19 +1,16 @@
-﻿using System;
-using System.Linq;
-using CellEngine.Utilities;
+﻿using System.Linq;
+using CellEngine.World.Jobs;
+using CellEngine.World.Rendering;
 using JUtils.Attributes;
-using Unity.Burst;
 using Unity.Collections;
-using Unity.Mathematics;
 using Unity.Jobs;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Profiling;
-using World.Components.Rendering;
-using World.Jobs;
 
 
 
-namespace World.Components
+namespace CellEngine.World
 {
     public class CellEngine : MonoBehaviour
     {

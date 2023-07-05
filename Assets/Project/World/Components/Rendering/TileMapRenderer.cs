@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using CellEngine.Utilities;
+using CellEngine.World.Jobs;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Tilemaps;
-using World.Jobs;
 
 
 
-namespace World.Components.Rendering
+namespace CellEngine.World.Rendering
 {
     [RequireComponent(typeof(Tilemap))]
     public class TilemapCellRenderer : CellWorldRenderer
