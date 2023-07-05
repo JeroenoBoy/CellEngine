@@ -130,6 +130,8 @@ GameObject:
   m_Component:
   - component: {fileID: 50910821}
   - component: {fileID: 50910820}
+  - component: {fileID: 50910822}
+  - component: {fileID: 50910823}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -169,6 +171,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50910822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50910819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83757e29e31f49b89d2ae1b05f650378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellEngine: {fileID: 1420500029}
+  _spawner: {fileID: 50910823}
+--- !u!114 &50910823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50910819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3034f047334f4a879a5ad324c39dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellEngine: {fileID: 1420500029}
+  _brushSize:
+    x: 8
+    y: 8
+  activeTemplate:
+    cellType: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    behaviour: 0
+    mass: 0
 --- !u!1 &254728303
 GameObject:
   m_ObjectHideFlags: 0

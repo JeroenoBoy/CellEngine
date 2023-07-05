@@ -31,7 +31,7 @@ namespace CellEngine.World.Jobs
 
             Random random = new Random((uint)((index << 10) * 20) + seed);
 
-            NativeList<int2x2> swaps = new (Chunk.SIZE, Allocator.Temp);
+            NativeList<int2x2> swaps = new (Chunk.AREA, Allocator.Temp);
             NativeArray<bool>  bools = new (Chunk.SIZE, Allocator.Temp);
 
             for (int y = 0; y < Chunk.SIZE; y++) {
@@ -63,14 +63,15 @@ namespace CellEngine.World.Jobs
                         case CellBehaviour.Water: ProcessWater(worldPos, cell, ref random, ref swaps); break;
                     }
                 }
-                
-                //  Applying swaps
-
-                for (int i = 0; i < swaps.Length; i++) {
-                    worldData.SwapCells(swaps[i]);
-                }
-                swaps.Clear();
             }
+            
+            //  Applying swaps
+            
+            for (int i = 0; i < swaps.Length; i++) {
+                worldData.SwapCells(swaps[i]);
+            }
+            
+            swaps.Clear();
         }
 
 
@@ -111,12 +112,6 @@ namespace CellEngine.World.Jobs
             
             otherPos.x += state * 2 - 1;
             if (worldData.TryGetCell(otherPos, out Cell other) && cell.mass > other.mass) {
-                swaps.Add(new int2x2(worldPos, otherPos));
-                return;
-            }
-
-            otherPos.x += state * -4 + 2;
-            if (worldData.TryGetCell(otherPos, out other) && cell.mass > other.mass) {
                 swaps.Add(new int2x2(worldPos, otherPos));
             }
         }

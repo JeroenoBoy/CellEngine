@@ -18,6 +18,8 @@ namespace CellEngine.World.Rendering
         [SerializeField] private int2       _cameraSize;
         [SerializeField] private TileBase[] _tilesBases;
 
+        public override float2 scale => math.float2(transform.localScale.x, transform.localScale.y);
+        
         private Tilemap            _tilemap;
         private Native2dArray<byte> _tiles;
         private Native2dArray<byte> _previousTiles;

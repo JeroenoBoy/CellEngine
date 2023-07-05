@@ -25,10 +25,18 @@ namespace CellEngine.World
         [SerializeField] private byte _cellType;
         [SerializeField] private int2 _position;
         [SerializeField] private int2 _size;
+        
+        public CellTemplate[]    cellTemplates => _cellTemplates;
+        public int2              size          => _chunks * Chunk.SIZE;
+        public CellWorldRenderer renderer      => _renderer;
 
         private WorldData _worldData;
+        
 
-        public CellTemplate[] cellTemplates => _cellTemplates;
+        public void Fill(CellTemplate cellTemplate, int2 position, int2 size)
+        {
+            _worldData.Fill(cellTemplate, position, size);
+        }
         
 
         public void Fill(byte cellType, int2 position, int2 size)

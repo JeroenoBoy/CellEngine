@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="TileButton" src="project://database/Assets/UI%20Toolkit/Docs/TileButton.uxml?fileID=9197481963319205126&amp;guid=69b423c1bb8749c40b689e1fe4747b3d&amp;type=3#TileButton" />
-    <ui:VisualElement style="align-items: flex-end;">
+    <ui:VisualElement name="List" style="align-items: flex-end;">
         <ui:Instance template="TileButton" name="TileButton" />
     </ui:VisualElement>
 </ui:UXML>
