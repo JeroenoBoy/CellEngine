@@ -89,14 +89,13 @@ namespace CellEngine.World.Jobs
 
         public bool ProcessGravity(int2 prevPos, int2 nextPos, ref Cell cell, ref NativeList<int2x2> swaps)
         {
-            worldData.RayCast();
-
+            int2 otherPos = prevPos + down, worldPos = prevPos;
+            
             if (!worldData.TryGetCell(otherPos, out Cell other) || cell.mass <= other.mass) {
                 cell.velocity = float2.zero;
                 return false;
             }
             
-            cell.velocity += new float2(0, -gravity * dt);
             swaps.Add(new int2x2(worldPos, otherPos));
             return true;
         }

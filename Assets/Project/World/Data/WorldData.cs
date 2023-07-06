@@ -91,16 +91,31 @@ namespace CellEngine.World
 
             int2 dir = to - from;
             int2 abs = math.abs(dir);
-            if (abs.x > abs.y) {
-                float step = math.abs(dir.y / (float)dir.x) * math.sign(dir.y);
-                int   sign = (int)math.sign(abs.x);
-                for (int i = 0; i <= abs.x; i++) {
-                    int2 worldPos = new int2(from.x + i * sign, (int)math.floor(from.y + i * step));
+
+            if (abs.x >= abs.y) {
+                float yStep = math.abs(dir.y / (float)dir.x) * math.sign(dir.y);
+                int   sign  = (int)math.sign(abs.x);
+                for (int i = 0; i < abs.x; i++) {
+                    int2 worldPos = new int2(from.x + i * sign, (int)math.floor(from.y + (i + .5f) * yStep));
 
                     if (!Bounds.IsInside(worldPos, chunkPos, maxPos))
                         GetChunk(worldPos);
 
-                    Cell cell = currentChunk[chunkPos - worldPos];
+                    Cell cell = currentChunk[worldPos - chunkPos];
+                    if (cell.cellType == 0) continue;
+                    cells.Add(cell);
+                }
+            }
+            else {
+                float xStep = math.abs(dir.x / (float)dir.y) * math.sign(dir.x);
+                int   sign  = (int)math.sign(abs.y);
+                for (int i = 0; i < abs.y; i++) {
+                    int2 worldPos = new int2((int)math.floor(from.x + (i + .5f) * xStep), from.x + i * sign);
+
+                    if (!Bounds.IsInside(worldPos, chunkPos, maxPos))
+                        GetChunk(worldPos);
+
+                    Cell cell = currentChunk[worldPos - chunkPos];
                     if (cell.cellType == 0) continue;
                     cells.Add(cell);
                 }
@@ -108,7 +123,7 @@ namespace CellEngine.World
             
             void GetChunk(int2 worldPos)
             {
-                currentChunk = self.GetChunkAt(from);
+                currentChunk = self.GetChunkAt(worldPos);
                 chunkPos     = currentChunk.worldPosition;
                 maxPos       = currentChunk.max;
             }

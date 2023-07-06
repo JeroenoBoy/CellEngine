@@ -30,7 +30,9 @@ namespace CellEngine.World
         public CellTemplate[]    cellTemplates => _cellTemplates;
         public int2              size          => _chunks * Chunk.SIZE;
         public CellWorldRenderer renderer      => _renderer;
+        public WorldData         worldData     => _worldData; 
 
+            
         private WorldData _worldData;
         
 
@@ -85,8 +87,7 @@ namespace CellEngine.World
 
         private void JobScheduler(float dt)
         {
-            SimulationJob job = new SimulationJob { gravity = _gravity, dt = dt, worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time
-            .deltaTime * 741246)};
+            SimulationJob job = new SimulationJob { gravity = _gravity, dt = dt, worldData = _worldData, seed = (uint)(Time.realtimeSinceStartup * Time.deltaTime * 741246)};
             
             int len = _worldData.length;
             Schedule(int2.zero); 
