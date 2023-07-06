@@ -28,7 +28,7 @@ namespace CellEngine.World.Jobs
             for (int y = Chunk.SIZE; y --> 0;) {
                 int2 pos = new int2(x,y);
                 if (!Bounds.IsInside(chunkWorldPos + pos, worldPosition, boundsMax)) continue;
-                chunk[pos] = new Cell(template, pos);
+                chunk[pos] = new Cell(template, pos, chunkWorldPos + pos);
             }
         }
     }

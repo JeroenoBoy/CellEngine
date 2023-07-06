@@ -692,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 254728307}
-  _gravity: 9.81
+  _gravity: 19.62
   _chunks:
     x: 4
     y: 4
@@ -710,10 +710,10 @@ MonoBehaviour:
     behaviour: 2
     mass: 1
   _doInitialFill: 1
-  _cellType: 2
+  _cellType: 1
   _position:
-    x: 64
-    y: 0
+    x: 0
+    y: 64
   _size:
     x: 64
     y: 64
@@ -730,8 +730,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _from:
-    x: 0
-    y: 0
+    x: 3
+    y: 10
   _to:
     x: 5
     y: 5

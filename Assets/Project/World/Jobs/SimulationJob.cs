@@ -9,7 +9,6 @@ using Random = Unity.Mathematics.Random;
 
 namespace CellEngine.World.Jobs
 {
-    [BurstCompile]
     public struct SimulationJob : IJobParallelFor
     {
         public float     gravity;
@@ -57,17 +56,17 @@ namespace CellEngine.World.Jobs
                 
                 //  Second iteration
 
-                for (int x = 0; x < Chunk.SIZE; x++) {
-                    if (bools[x]) continue;
-                    
-                    Cell cell     = chunk[x, y];
-                    int2 worldPos = chunkPos + new int2(x,y);
-
-                    switch (cell.behaviour) {
-                        case CellBehaviour.Sand: ProcessSand(worldPos, cell, ref random, ref swaps); break;
-                        case CellBehaviour.Water: ProcessWater(worldPos, cell, ref random, ref swaps); break;
-                    }
-                }
+                // for (int x = 0; x < Chunk.SIZE; x++) {
+                //     if (bools[x]) continue;
+                //     
+                //     Cell cell     = chunk[x, y];
+                //     int2 worldPos = chunkPos + new int2(x,y);
+                //
+                //     switch (cell.behaviour) {
+                //         case CellBehaviour.Sand: ProcessSand(worldPos, cell, ref random, ref swaps); break;
+                //         case CellBehaviour.Water: ProcessWater(worldPos, cell, ref random, ref swaps); break;
+                //     }
+                // }
             }
             
             //  Applying swaps
@@ -89,14 +88,18 @@ namespace CellEngine.World.Jobs
 
         public bool ProcessGravity(int2 prevPos, int2 nextPos, ref Cell cell, ref NativeList<int2x2> swaps)
         {
-            int2 otherPos = prevPos + down, worldPos = prevPos;
-            
-            if (!worldData.TryGetCell(otherPos, out Cell other) || cell.mass <= other.mass) {
-                cell.velocity = float2.zero;
+            if (worldData.CellCast(prevPos, nextPos, out CellCastHit hit)) {
+                cell.velocity = int2.zero;
+                nextPos       = hit.worldPosition;
+            }
+
+            cell.velocity += (float2)down * (gravity * dt);
+
+            if (Bools.Compare(prevPos == nextPos) || Bools.Compare(prevPos == nextPos - down)) {
                 return false;
             }
             
-            swaps.Add(new int2x2(worldPos, otherPos));
+            swaps.Add(new int2x2(prevPos, nextPos - down));
             return true;
         }
 

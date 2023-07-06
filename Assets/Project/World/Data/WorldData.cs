@@ -31,7 +31,7 @@ namespace CellEngine.World
         {
             this.chunks = new Unsafe2dArray<Chunk>(chunks, allocator);
 
-            boundsMax = chunks * Chunk.SIZE;
+            boundsMax = chunks * Chunk.SIZE - 1;
             boundsMin = int2.zero;
             
             for (int x = chunks.x; x --> 0;)
@@ -72,16 +72,8 @@ namespace CellEngine.World
         }
 
 
-        public bool RayCast(int2 from, int2 to, Allocator allocator, out NativeList<Cell> cells)
+        public bool CellCast(int2 from, int2 to, out CellCastHit cellCastHit, int skip = 1)
         {
-            cells = new NativeList<Cell>((int)math.ceil(math.length(to - from)), allocator);
-            return RayCast(from, to, ref cells);
-        }
-        
-        
-        public bool RayCast(int2 from, int2 to, ref NativeList<Cell> cells)
-        {
-            cells.Clear();
             WorldData self = this;
             Chunk     currentChunk;
             int2      chunkPos;
@@ -91,47 +83,60 @@ namespace CellEngine.World
 
             int2 dir = to - from;
             int2 abs = math.abs(dir);
+            
+            int  i;
+            cellCastHit = CellCastHit.WallHit(from);
 
             if (abs.x >= abs.y) {
                 float yStep = math.abs(dir.y / (float)dir.x) * math.sign(dir.y);
-                int   sign  = (int)math.sign(abs.x);
-                for (int i = 0; i < abs.x; i++) {
+                int   sign  = (int)math.sign(dir.x);
+                for (i = skip; i < abs.x; i++) {
                     int2 worldPos = new int2(from.x + i * sign, (int)math.floor(from.y + (i + .5f) * yStep));
 
-                    if (!Bounds.IsInside(worldPos, chunkPos, maxPos))
-                        GetChunk(worldPos);
+                    if (!IsInBounds(worldPos)) break;
+                    if (!Bounds.IsInside(worldPos, chunkPos, maxPos)) GetChunk(worldPos);
 
                     Cell cell = currentChunk[worldPos - chunkPos];
-                    if (cell.cellType == 0) continue;
-                    cells.Add(cell);
+
+                    if (cell.cellType == Cell.AIR) {
+                        cellCastHit = CellCastHit.WallHit(worldPos);
+                    }
+                    else {
+                        cellCastHit = new CellCastHit(cell, worldPos);
+                        return true;
+                    }
                 }
             }
             else {
                 float xStep = math.abs(dir.x / (float)dir.y) * math.sign(dir.x);
-                int   sign  = (int)math.sign(abs.y);
-                for (int i = 0; i < abs.y; i++) {
-                    int2 worldPos = new int2((int)math.floor(from.x + (i + .5f) * xStep), from.x + i * sign);
+                int   sign  = (int)math.sign(dir.y);
+                for (i = skip; i < abs.y; i++) {
+                    int2 worldPos = new int2((int)math.floor(from.x + (i + .5f) * xStep), from.y + i * sign);
 
-                    if (!Bounds.IsInside(worldPos, chunkPos, maxPos))
-                        GetChunk(worldPos);
-
+                    if (!IsInBounds(worldPos)) break;
+                    if (!Bounds.IsInside(worldPos, chunkPos, maxPos)) GetChunk(worldPos);
+                    
                     Cell cell = currentChunk[worldPos - chunkPos];
-                    if (cell.cellType == 0) continue;
-                    cells.Add(cell);
+                    
+                    if (cell.cellType == Cell.AIR) {
+                        cellCastHit = CellCastHit.WallHit(worldPos);
+                    }
+                    else {
+                        cellCastHit = new CellCastHit(cell, worldPos);
+                        return true;
+                    }
                 }
             }
-            
+
+            return i < math.max(abs.x, abs.y);
+
             void GetChunk(int2 worldPos)
             {
                 currentChunk = self.GetChunkAt(worldPos);
                 chunkPos     = currentChunk.worldPosition;
                 maxPos       = currentChunk.max;
             }
-
-            return true;
         }
-
-
 
 
         public void SwapCells(int2x2 cells) => SwapCells(cells.c0, cells.c1);
@@ -162,7 +167,7 @@ namespace CellEngine.World
 
         public bool IsInBounds(int2 position)
         {
-            return Bounds.IsInside(position, boundsMin, boundsMax - new int2(1, 1));
+            return Bounds.IsInside(position, boundsMin, boundsMax);
         }
         
         
@@ -205,6 +210,30 @@ namespace CellEngine.World
                 chunks[i].Dispose();
             }
             chunks.Dispose();
+        }
+    }
+
+
+
+    public readonly struct CellCastHit
+    {
+        public static CellCastHit WallHit(int2 worldPosition)
+        {
+            Cell cell = Cell.wall;
+            cell.worldPosition = worldPosition;
+            return new CellCastHit(cell, worldPosition);
+        }
+        
+        public readonly Cell cell;
+        public readonly int2 worldPosition;
+
+        public bool hitBounds => cell.cellType == Cell.WALL_TYPE;
+
+        
+        public CellCastHit(Cell cell, int2 worldPosition)
+        {
+            this.cell          = cell;
+            this.worldPosition = worldPosition;
         }
     }
 }

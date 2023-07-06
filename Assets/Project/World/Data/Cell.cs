@@ -16,6 +16,10 @@ namespace CellEngine.World
     
     public struct Cell
     {
+        public const    byte WALL_TYPE = 255;
+        public const    byte AIR       = 0;
+        public static readonly Cell wall = new Cell() { cellType = WALL_TYPE};
+
         public int2          localPosition;
         public float2        worldPosition;
         public float2        velocity;
@@ -24,18 +28,18 @@ namespace CellEngine.World
         public int           mass;
 
 
-        public Cell(CellTemplate template, int2 localPosition)
+        public Cell(CellTemplate template, int2 localPosition, float2 worldPosition)
         {
             this.behaviour     = template.behaviour;
             this.localPosition = localPosition;
-            this.worldPosition = localPosition;
-            this.velocity      = int2.zero;
+            this.worldPosition = worldPosition;
+            this.velocity      = float2.zero;
             this.cellType      = template.cellType;
             this.mass          = template.mass;
         }
 
 
-        public Cell(CellTemplate template, int x, int y) : this(template, new int2(x,y)) {}
+        public Cell(CellTemplate template, int x, int y, Chunk chunk) : this(template, new int2(x,y), new int2(x, y) + chunk.worldPosition) {}
     }
 
     
